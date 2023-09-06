@@ -5,7 +5,63 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <img src="<%= data.characterImage %>" alt="">
+    <table>
+      <thead>
+      <tr>
+        <th>분류</th>
+        <th>내용</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(const {key, value} of Object.values(data.character)) { %>
+        <tr>
+          <td><%= key %></td>
+          <% if(["string", "number"].includes(typeof value)) { %>
+            <td><%= value %></td>
+          <% } else { %>
+            <td>
+              <% for(const item of Object.values(value)) { %>
+                <p><%= item.key %> : <%= item.value %></p>
+              <% } %>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
+      </tbody>
+    </table>
+    <p>장비아이템 총합</p>
+    <% for(const item of Object.values(data.summary)) { %>
+      <p>
+        <span><%= item.key %></span>&nbsp;:&nbsp;<span><%= item.value %></span>
+      </p>
+    <% } %>
+    <p>장비아이템 데이터</p>
+    <table>
+      <thead>
+      <tr>
+        <th>이미지</th>
+        <th>이름</th>
+        <th>옵션</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(const item of equipment.normal) { %>
+        <tr>
+          <td><img src="<%= item.imageUrl %>" alt=""></td>
+          <td><%= item.name %></td>
+          <td>
+            <%= item.options.text.join(", ") %>
+          </td>
+        </tr>
+      <% } %>
+      </tbody>
+    </table>
+    <pre>
+      <%= JSON.stringify(equipment, undefined, 4) %>
+    </pre>
+    <pre>
+      <%= JSON.stringify(rawData.equipments, undefined, 4) %>
+    </pre>
   </body>
 </html>
