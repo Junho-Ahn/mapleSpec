@@ -1,0 +1,197 @@
+{
+  "basic": [
+    {
+      "level": 1,
+      "stat": 2
+    },
+    {
+      "level": 2,
+      "stat": 4
+    },
+    {
+      "level": 3,
+      "stat": 6
+    },
+    {
+      "level": 4,
+      "stat": 8
+    },
+    {
+      "level": 5,
+      "stat": 10
+    },
+    {
+      "level": 6,
+      "stat": 13
+    },
+    {
+      "level": 7,
+      "stat": 16
+    },
+    {
+      "level": 8,
+      "stat": 19
+    },
+    {
+      "level": 9,
+      "stat": 22
+    },
+    {
+      "level": 10,
+      "stat": 25
+    },
+    {
+      "level": 11,
+      "stat": 28
+    },
+    {
+      "level": 12,
+      "stat": 31
+    },
+    {
+      "level": 13,
+      "stat": 34
+    },
+    {
+      "level": 14,
+      "stat": 37
+    },
+    {
+      "level": 15,
+      "stat": 40
+    }
+  ],
+  "normal": {
+    "130": [
+      {
+        "level": 16,
+        "stat": 47,
+        "atk": 7
+      },
+      {
+        "level": 17,
+        "stat": 54,
+        "atk": 15
+      },
+      {
+        "level": 18,
+        "stat": 61,
+        "atk": 24
+      },
+      {
+        "level": 19,
+        "stat": 68,
+        "atk": 34
+      },
+      {
+        "level": 20,
+        "stat": 75,
+        "atk": 45
+      }
+    ],
+    "140": [
+      {
+        "level": 16,
+        "stat": 49,
+        "atk": 8
+      },
+      {
+        "level": 17,
+        "stat": 58,
+        "atk": 17
+      },
+      {
+        "level": 18,
+        "stat": 67,
+        "atk": 27
+      },
+      {
+        "level": 19,
+        "stat": 76,
+        "atk": 38
+      },
+      {
+        "level": 20,
+        "stat": 85,
+        "atk": 50
+      },
+      {
+        "level": 21,
+        "stat": 94,
+        "atk": 63
+      },
+      {
+        "level": 22,
+        "stat": 103,
+        "atk": 78
+      },
+      {
+        "level": 23,
+        "stat": 103,
+        "atk": 95
+      },
+      {
+        "level": 24,
+        "stat": 103,
+        "atk": 114
+      },
+      {
+        "level": 25,
+        "stat": 103,
+        "atk": 135
+      }
+    ],
+    "150": [
+      {
+        "level": 16,
+        "stat": 51,
+        "atk": 9
+      },
+      {
+        "level": 17,
+        "stat": 62,
+        "atk": 19
+      },
+      {
+        "level": 18,
+        "stat": 73,
+        "atk": 30
+      },
+      {
+        "level": 19,
+        "stat": 84,
+        "atk": 42
+      },
+      {
+        "level": 20,
+        "stat": 95,
+        "atk": 55
+      },
+      {
+        "level": 21,
+        "stat": 106,
+        "atk": 69
+      },
+      {
+        "level": 22,
+        "stat": 117,
+        "atk": 85
+      },
+      {
+        "level": 23,
+        "stat": 117,
+        "atk": 103
+      },
+      {
+        "level": 24,
+        "stat": 117,
+        "atk": 123
+      },
+      {
+        "level": 25,
+        "stat": 117,
+        "atk": 145
+      }
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+[
+  {
+    "contains": [
+      "우트가르드",
+      "펜살리르"
+    ],
+    "category": [
+      "모자",
+      "한벌옷",
+      "신발",
+      "장갑",
+      "망토",
+      "무기"
+    ],
+    "option": [
+      {
+        "require": 3,
+        "content": {
+          "hpP": 9,
+          "mpP": 9,
+          "mobDmg": 2
+        }
+      },
+      {
+        "require": 4,
+        "content": {
+          "atk": 9,
+          "mAtk": 9,
+          "mainStat": 9,
+          "mobDmg": 4
+        }
+      },
+      {
+        "require": 5,
+        "content": {
+          "allStat": 15,
+          "ignoreDef": 10,
+          "mobDmg": 8
+        }
+      },
+      {
+        "require": 6,
+        "content": {
+          "atk": 10,
+          "mAtk": 10,
+          "mobDmg": 8
+        }
+      }
+    ]
+  },
+  {
+    "contains": [
+      "마이스터"
+    ],
+    "category": [
+      "무기",
+      "귀고리",
+      "반지",
+      "어깨장식"
+    ],
+    "option": [
+      {
+        "require": 2,
+        "content": {
+          "hpP": 10,
+          "mpP": 10
+        }
+      },
+      {
+        "require": 3,
+        "content": {
+          "atk": 40,
+          "mAtk": 40
+        }
+      },
+      {
+        "require": 4,
+        "content": {
+          "bossDmg": 20
+        }
+      }
+    ]
+  },
+  {
+    "contains": [
+      "이글아이",
+      "트릭스터",
+      "하이네스",
+      "파프니르",
+      "라피스",
+      "라즐리"
+    ],
+
+  }
+]

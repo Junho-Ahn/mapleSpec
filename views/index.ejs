@@ -1,67 +1,136 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <img src="<%= data.characterImage %>" alt="">
-    <table>
-      <thead>
-      <tr>
-        <th>분류</th>
-        <th>내용</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% for(const {key, value} of Object.values(data.character)) { %>
-        <tr>
-          <td><%= key %></td>
-          <% if(["string", "number"].includes(typeof value)) { %>
-            <td><%= value %></td>
-          <% } else { %>
-            <td>
-              <% for(const item of Object.values(value)) { %>
-                <p><%= item.key %> : <%= item.value %></p>
-              <% } %>
-            </td>
-          <% } %>
-        </tr>
-      <% } %>
-      </tbody>
-    </table>
-    <p>장비아이템 총합</p>
-    <% for(const item of Object.values(data.summary)) { %>
-      <p>
-        <span><%= item.key %></span>&nbsp;:&nbsp;<span><%= item.value %></span>
-      </p>
-    <% } %>
-    <p>장비아이템 데이터</p>
-    <table>
-      <thead>
-      <tr>
-        <th>이미지</th>
-        <th>이름</th>
-        <th>옵션</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% for(const item of equipment.normal) { %>
-        <tr>
-          <td><img src="<%= item.imageUrl %>" alt=""></td>
-          <td><%= item.name %></td>
-          <td>
-            <%= item.options.text.join(", ") %>
-          </td>
-        </tr>
-      <% } %>
-      </tbody>
-    </table>
-    <pre>
-      <%= JSON.stringify(equipment, undefined, 4) %>
-    </pre>
-    <pre>
-      <%= JSON.stringify(rawData.equipments, undefined, 4) %>
-    </pre>
-  </body>
+    <link rel='stylesheet' href='/stylesheets/reset.css'/>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+    <div class="container">
+        <div class="character-info">
+            <div class="portrait">
+                <img class="portrait-image" src="<%= data.characterImage %>" alt="">
+            </div>
+            <div class="character-info_tags">
+                <div class="character-tag">Lv.<%= data.character.level.value %></div>
+                <div class="character-tag"><%= data.character.class.value %></div>
+            </div>
+            <div class="character-name"><%= data.character.name.value %></div>
+            <div class="stat-content">
+                <div class="stat-title">장비, 어빌, 하이퍼 스탯</div>
+                <% for(const item of Object.values(data.summary)) { %>
+                    <div class="stat-item">
+                        <span><%= item.key %></span>&nbsp;:&nbsp;<span><%= item.value %></span>
+                    </div>
+                <% } %>
+            </div>
+            <div class="traits">
+                <canvas class="traits-canvas"></canvas>
+            </div>
+            <div class="ability">
+                <% for(const row of Object.values(data.character.abilities.value).map(x => `${x.key} ${x.value}`)) { %>
+                    <div class="ability-row"><%= row %></div>
+                <% } %>
+            </div>
+        </div>
+        <div class="item-list">
+            <% for(const item of equipment.normal) { %>
+                <div class="item">
+                    <div class="icon"><img src="<%= item.imageUrl %>" alt=""></div>
+                    <div class="name"><%= item.name %></div>
+                    <div class="option">
+                        <span class="tag star"><%= item.options.star.value %></span>
+                        <span class="tag flame"><%= item.options.flame.value %></span>
+                        <span class="tag potential" data-grade="<%= item.options.potential.grade %>">
+                            <% if(Object.values(item.options.potential).length > 1) { %>
+                                <%= item.options.potential.text %>
+                            <% } else { %>
+                                ⋯
+                            <% } %>
+                        </span>
+                        <span class="tag additional" data-grade="<%= item.options.additional.grade %>">
+                            <% if(Object.values(item.options.additional).length > 1) { %>
+                                <%= item.options.additional.text %>
+                            <% } else { %>
+                                ⋯
+                            <% } %>
+                        </span>
+                        <% if(item.options.soul) { %>
+                            <span class="tag soul" data-grade="<%= item.options.additional.grade %>"><%= item.options.soul %></span>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+<!--    <pre><%= JSON.stringify(data, undefined, 4) %></pre>-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script>
+		window.addEventListener("DOMContentLoaded", () => {
+			"use strict";
+
+			const traits = <%- JSON.stringify(data.character.traits.value) %>;
+			const traitList = [
+				{...traits.ambition},
+				{...traits.empathy},
+				{...traits.insight},
+				{...traits.willpower},
+				{...traits.diligence},
+				{...traits.charm}
+			];
+			new Chart(document.querySelector(".traits-canvas"), {
+				type: "radar",
+				data: {
+					labels: traitList.map(x => x.key),
+					datasets: [
+						{
+							label: "성향",
+							fill: true,
+							backgroundColor: "rgba(100, 149, 237, 0.2)",
+							borderColor: "rgba(100, 149, 237, 1)",
+							pointBorderColor: "#ffffff",
+							pointBackgroundColor: "rgba(100, 149, 237, 1)",
+							data: traitList.map(x => x.value)
+						}
+					]
+				},
+				options: {
+					scales: {
+						r: {
+							ticks: {
+								display: false
+							},
+							min: 0,
+							max: 125,
+							angleLines: {
+								color: "rgba(100, 149, 237, 0.8)"
+							},
+							pointLabels: {
+								font: 14
+							}
+						}
+					},
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							enabled: false
+						},
+						datalabels: {
+							anchor: "end",
+							clamp: true,
+							align: "end",
+							offset: -4,
+							textStrokeWidth: 2,
+							textStrokeColor: "#ffffff"
+						}
+					}
+				},
+				plugins: [ChartDataLabels]
+			});
+		}, {once: true});
+    </script>
+</body>
 </html>
