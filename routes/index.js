@@ -6,26 +6,29 @@ const fs = require("fs");
 /* GET home page. */
 router.get("/search/:nickname", async(req, res, next) => {
 	const parser = MapleUtilsParser.new();
-	const tryGet = (count = 0) => new Promise(async r => {
-		try {
-			const data = await parser.getCharacter({
-				name: req.params.nickname,
-				cash: true,
-				pet: true,
-				equip: true,
-				symbol: true
-			});
-			
-			r(data);
-		}catch(e) {
-			console.log(e);
-			if(count > 10) {
-				r();
+	
+	const getData = async function(count = 0) {
+		const data = await parser.getCharacterWithErrors({
+			name: req.params.nickname,
+			cash: true,
+			pet: true,
+			equip: true,
+			symbol: true
+		});
+		
+		console.log(data);
+		if(data.errors !== undefined) {
+			if(count < 3) {
+				return await getData(++count);
+			}else {
+				throw new Error("얜 안된다");
 			}
-			r(await tryGet(++count));
+		} else {
+			return data.data;
 		}
-	});
-	const rawData = await tryGet();
+	}
+	
+	const rawData = await getData();
 	
 	const nameDefinition = JSON.parse(fs.readFileSync("./public/data/nameDefinition.json", "utf-8"));
 	const statDefinition = JSON.parse(fs.readFileSync("./public/data/statDefinition.json", "utf-8"));
